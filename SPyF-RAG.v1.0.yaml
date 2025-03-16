@@ -1,0 +1,153 @@
+# SPyF-RAG: AI-Optimized Standard Python Framework (Lean & Adaptive v1.0)
+
+metadata:
+  title: "SPyF-RAG Framework Guide"
+  version: "1.0"
+  language: "Python"
+  architecture: "MVC"
+  features:
+    - Lightweight
+    - Secure
+    - Extendable
+    - AI-Ready
+    - Scalable
+    - Adaptive
+    - Lean
+  use_cases:
+    - Notes-Taking
+    - CMS
+    - LMS
+    - CRM
+    - ERP
+    - HRMS
+    - PMS
+    - WMS
+  author: "Inspired by Terrylan Manalansan’s SPMP, adapted for Python"
+  last_updated: "2025-03-16"
+  description: "A lean, adaptive Python MVC framework generating exact software for exact hardware and user needs."
+  scalability_note: "Scales from 1 user on a 4GB Linux device to 50,000+ users on optimized cloud."
+  competitive_edge: "Rivals Flask/Django with a lightweight core, AI-driven adaptability, and hardware-specific optimization."
+
+ai_query_instructions:
+  sample_queries:
+    - "Generate a notes app for a 4GB RAM Linux device with 1 user."
+    - "Build an ERP for 10,000 users on GCP with cost estimate."
+  hardware_context:
+    - field: "cpu"
+      example: "1.1GHz Celeron N3450"
+    - field: "ram"
+      example: "4GB"
+    - field: "os"
+      example: "Linux"
+    - field: "user_count"
+      example: "1, 100, 10000"
+  generation_rules:
+    - rule: "If ram < 8GB, use file-based Cache.py, skip Redis."
+    - rule: "If user_count < 10, disable async workers."
+    - rule: "For 'ERP' and user_count > 1000, enable full stack with cloud_recommendations."
+  dynamic_templates:
+    - name: "NotesSystem"
+      function_tag: "@NOTES"
+      template: |
+        # app/controllers/note_controller.py
+        from app.models.note_model import Note
+        from core.cache import Cache
+        class NoteController:
+            def create(self, data):
+                note = Note.create(title=data["title"], content=data["content"])
+                [CACHE_LOGIC]
+                return note
+      variables:
+        - name: "CACHE_LOGIC"
+          options:
+            - condition: "ram < 8GB"
+              code: "cache = Cache(config); cache.set_file(f\"note_{id(note)}\", note)"
+            - condition: "ram >= 8GB"
+              code: "cache = Cache(config); cache.set_redis(f\"note_{id(note)}\", note)"
+
+installation:
+  requirements:
+    - "Python 3.9+"
+    - "SQLite 3.35+ or PostgreSQL 14+ or Redis 5.0+ (optional)"
+    - "Flask 2.3+"
+  lean_config:
+    language: "Python"
+    code: |
+      # config.py
+      config = {
+          "dbname": "spyf_db",
+          "db_type": "sqlite",
+          "redis": {"enabled": False, "host": "localhost", "port": 6379},
+          "features": {"redis": False, "async": False}
+      }
+  cli_commands:
+    - command: "spyf generate-model [NAME]"
+      purpose: "Creates a model (e.g., note)."
+    - command: "spyf optimize-hardware [CPU] [RAM] [OS] [USERS]"
+      purpose: "Sets config based on specs (e.g., spyf optimize-hardware 1.1GHz 4GB Linux 1)."
+
+folder_structure:
+  path: "/spyf_project/"
+  subdirs:
+    - path: "app/"
+      components:
+        - "controllers/ # Business logic (e.g., home_controller.py)"
+        - "models/ # Database interactions (e.g., base_model.py)"
+        - "views/ # Jinja2 templates (e.g., layout.html)"
+    - path: "core/"
+      components:
+        - "cache.py # Lean caching (file or Redis)"
+        - "db.py # Database wrapper with SQLAlchemy"
+        - "router.py # URL handling with Flask"
+        - "security.py # CSRF/XSS protection"
+        - "template.py # Templating with Jinja2"
+    - path: "public/"
+      components:
+        - "static/ # CSS/JS (e.g., style.css)"
+        - "run.py # Entry point"
+    - "config.py # Centralized settings"
+
+security:
+  - tag: "@CSRF-Protection"
+    method: "Use Flask-WTF’s CSRF protection."
+    context: "Prevents cross-site request forgery in forms."
+    code:
+      language: "Python"
+      snippet: |
+        from flask_wtf.csrf import CSRFProtect
+        csrf = CSRFProtect(app)
+  - tag: "@XSS-Prevention"
+    method: "Use bleach to sanitize input."
+    context: "Sanitizes user input to block XSS attacks."
+    code:
+      language: "Python"
+      snippet: |
+        import bleach
+        clean_input = bleach.clean(request.form["input"])
+  - tag: "@SQL-Injection"
+    method: "Use db.py with parameterized queries."
+    context: "Protects database queries from injection."
+    code:
+      language: "Python"
+      snippet: |
+        db.query("SELECT * FROM users WHERE id = :id", {"id": user_id})
+
+crud_operations:
+  - model:
+      name: "NoteModel"
+      code:
+        language: "Python"
+        snippet: |
+          # app/models/note_model.py
+          from core.db import DB
+          class Note:
+              @staticmethod
+              def create(title, content):
+                  db = DB(config)
+                  db.query("INSERT INTO notes (title, content) VALUES (:title, :content)", {"title": title, "content": content})
+                  return {"title": title, "content": content}
+
+installation_steps:
+  - "git clone https://github.com/terrylan/SPyF"
+  - "pip install -r requirements.txt"
+  - "python public/run.py"
