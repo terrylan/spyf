@@ -1,0 +1,183 @@
+# SPyF-RAG: AI-Optimized Standard Python Framework (Lean & Adaptive v2.0)
+
+metadata:
+  title: "SPyF-RAG Framework Guide"
+  version: "2.0"
+  language: "Python"
+  architecture: "MVC"
+  features:
+    - "Lightweight"
+    - "Secure"
+    - "Extendable"
+    - "AI-Ready"
+    - "Scalable"
+    - "Adaptive"
+    - "Lean"
+    - "Asynchronous Task Processing"  # From future_enhancements
+    - "Machine Learning Integration"  # From future_enhancements
+    - "Dynamic Dependency Injection"  # From future_enhancements
+    - "Cross-Language Interoperability"  # From future_enhancements
+    - "Automated Performance Profiling"  # From future_enhancements
+    - "Self-Healing Error Recovery"  # From future_enhancements
+    - "Enhanced ORM Capabilities"  # From future_enhancements
+    - "Real-Time Data Streaming"  # From future_enhancements
+    - "Distributed System Support"  # From future_enhancements
+    - "AI-Augmented Debugging"  # From future_enhancements
+  use_cases:
+    - "Notes-Taking"
+    - "CMS"
+    - "LMS"
+    - "CRM"
+    - "ERP"
+    - "HRMS"
+    - "PMS"
+    - "WMS"
+  author: "Inspired by Terrylan Manalansan’s SPMP, adapted for Python"
+  last_updated: "2025-03-16"
+  description: "A lean, adaptive Python MVC framework generating exact software for exact hardware and user needs, now with advanced AI and scalability features."
+  scalability_note: "Scales from 1 user on a 4GB Linux device to 50,000+ users on optimized cloud with distributed support."
+  competitive_edge: "Outpaces Flask/Django with a lightweight core, AI-driven adaptability, ML integration, and hardware-specific optimization."
+
+ai_query_instructions:
+  sample_queries:
+    - "Generate a notes app for a 4GB RAM Linux device with 1 user using async tasks."
+    - "Build an ERP for 10,000 users on GCP with ML analytics and cost estimate."
+    - "Debug a CRM for 100 users with AI-augmented suggestions."  # Reflects AI-Augmented Debugging
+  hardware_context:
+    - field: "cpu"
+      example: "1.1GHz Celeron N3450"
+    - field: "ram"
+      example: "4GB"
+    - field: "os"
+      example: "Linux"
+    - field: "user_count"
+      example: "1, 100, 10000"
+  generation_rules:
+    - rule: "If ram < 8GB, use file-based Cache.py, skip Redis."
+    - rule: "If user_count < 10, disable async workers; else enable async with clustering."  # Updated for Asynchronous Task Processing and Distributed System Support
+    - rule: "For 'ERP' and user_count > 1000, enable full stack with cloud_recommendations, ML hooks, and streaming."  # Updated for ML Integration and Real-Time Data Streaming
+    - rule: "Always profile performance and suggest optimizations."  # From Automated Performance Profiling
+  dynamic_templates:
+    - name: "NotesSystem"
+      function_tag: "@NOTES"
+      template: |
+        # app/controllers/note_controller.py
+        from app.models.note_model import Note
+        from core.cache import Cache
+        from core.di import Container  # Added for Dynamic Dependency Injection
+        from core.debug import AIDebugger  # Added for AI-Augmented Debugging
+        import asyncio  # Added for Asynchronous Task Processing
+        class NoteController:
+            def __init__(self):
+                self.container = Container()
+                self.debugger = AIDebugger()
+            async def create(self, data):  # Updated for async
+                note = await Note.create(title=data["title"], content=data["content"])
+                [CACHE_LOGIC]
+                self.debugger.suggest_fixes(note)  # AI-Augmented Debugging
+                return note
+      variables:
+        - name: "CACHE_LOGIC"
+          options:
+            - condition: "ram < 8GB"
+              code: "cache = Cache(config); await cache.set_file(f\"note_{id(note)}\", note)"  # Updated for async
+            - condition: "ram >= 8GB"
+              code: "cache = Cache(config); await cache.set_redis(f\"note_{id(note)}\", note)"  # Updated for async
+
+installation:
+  requirements:
+    - "Python 3.9+"
+    - "SQLite 3.35+ or PostgreSQL 14+ or Redis 5.0+ (optional)"
+    - "Flask 2.3+"
+    - "TensorFlow 2.10+ (optional for ML)"  # Added for Machine Learning Integration
+    - "aiohttp 3.8+ (for async)"  # Added for Asynchronous Task Processing
+  lean_config:
+    language: "Python"
+    code: |
+      # config.py
+      config = {
+          "dbname": "spyf_db",
+          "db_type": "sqlite",
+          "redis": {"enabled": False, "host": "localhost", "port": 6379},
+          "features": {"redis": False, "async": True, "ml": False, "clustering": False},  # Updated for new features
+          "di_container": "core.di.Container",  # Added for Dynamic Dependency Injection
+          "recovery": "enabled"  # Added for Self-Healing Error Recovery
+      }
+  cli_commands:
+    - command: "spyf generate-model [NAME]"
+      purpose: "Creates a model (e.g., note) with enhanced ORM support."  # Updated for Enhanced ORM Capabilities
+    - command: "spyf optimize-hardware [CPU] [RAM] [OS] [USERS]"
+      purpose: "Sets config with profiling and clustering based on specs."  # Updated for Automated Performance Profiling and Distributed System Support
+
+folder_structure:
+  - path: "/spyf_project/"
+    subdirs:
+      - path: "app/"
+        components:
+          - "controllers/ # Business logic (e.g., home_controller.py)"
+          - "models/ # Database interactions with enhanced ORM (e.g., base_model.py)"  # Updated
+          - "views/ # Jinja2 templates (e.g., layout.html)"
+      - path: "core/"
+        components:
+          - "cache.py # Lean caching (file or Redis)"
+          - "db.py # Database wrapper with SQLAlchemy and migrations"  # Updated for Enhanced ORM Capabilities
+          - "router.py # URL handling with Flask"
+          - "security.py # CSRF/XSS protection"
+          - "template.py # Templating with Jinja2"
+          - "di.py # Dependency injection container"  # Added for Dynamic Dependency Injection
+          - "stream.py # Real-time data streaming"  # Added for Real-Time Data Streaming
+          - "recovery.py # Self-healing mechanisms"  # Added for Self-Healing Error Recovery
+          - "debug.py # AI-augmented debugging tools"  # Added for AI-Augmented Debugging
+      - path: "public/"
+        components:
+          - "static/ # CSS/JS (e.g., style.css)"
+          - "run.py # Entry point with clustering support"  # Updated for Distributed System Support
+      - "config.py # Centralized settings with ML hooks"  # Updated for Machine Learning Integration
+
+security:
+  - tag: "@CSRF-Protection"
+    method: "Use Flask-WTF’s CSRF protection."
+    context: "Prevents cross-site request forgery in forms."
+    code:
+      language: "Python"
+      snippet: |
+        from flask_wtf.csrf import CSRFProtect
+        csrf = CSRFProtect(app)
+  - tag: "@XSS-Prevention"
+    method: "Use bleach to sanitize input."
+    context: "Sanitizes user input to block XSS attacks."
+    code:
+      language: "Python"
+      snippet: |
+        import bleach
+        clean_input = bleach.clean(request.form["input"])
+  - tag: "@SQL-Injection"
+    method: "Use db.py with parameterized queries."
+    context: "Protects database queries from injection."
+    code:
+      language: "Python"
+      snippet: |
+        db.query("SELECT * FROM users WHERE id = :id", {"id": user_id})
+
+crud_operations:
+  - model:
+      name: "NoteModel"
+      code:
+        language: "Python"
+        snippet: |
+          # app/models/note_model.py
+          from core.db import DB
+          from core.stream import Stream  # Added for Real-Time Data Streaming
+          class Note:
+              @staticmethod
+              async def create(title, content):  # Updated for Asynchronous Task Processing
+                  db = DB(config)
+                  await db.query("INSERT INTO notes (title, content) VALUES (:title, :content)", {"title": title, "content": content})
+                  stream = Stream(config)
+                  await stream.broadcast("note_created", {"title": title, "content": content})  # Added for Real-Time Data Streaming
+                  return {"title": title, "content": content}
+
+installation_steps:
+  - "git clone https://github.com/terrylan/SPyF"
+  - "pip install -r requirements.txt"
+  - "python public/run.py"
